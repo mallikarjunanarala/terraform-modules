@@ -1,0 +1,25 @@
+# File path: .coderabbit.yaml (Commit directly to 'main' branch)
+language: "en-US"
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+
+  path_instructions:
+    - path: "**/*.tf"
+      instructions: |
+        Review this Terraform configuration against WezvaTech enterprise cloud standards:
+        1. Flag any `aws_efs_file_system` with `encrypted = false` or a commented-out `kms_key_id`.
+        2. Flag any `aws_efs_backup_policy` where `status` is not `"ENABLED"`.
+        3. Always require a `CostCenter` and `Owner` tag on every AWS resource (`aws_kms_key`, `aws_efs_file_system`).
+        4. Flag any hardcoded `deletion_window_in_days` greater than 7 days in `Dev` environments to save sandbox costs.
